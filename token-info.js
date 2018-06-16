@@ -54,6 +54,8 @@ function initializeEthereumConnection(){
         defaultAc=ethWeb3.eth.accounts[0];
         console.log(defaultAc)
       }
+      accountsList = ethWeb3.eth.accounts;
+      console.log(accountsList)
       return true;
   }
 

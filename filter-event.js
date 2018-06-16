@@ -229,7 +229,7 @@ function execute(){
 //setContractAddress('<Provide the deployed contract address>');
 
 // Value 4- If required please update with a different message
-setEthereumURL('http://localhost:7545');
+setEthereumURL('http://localhost:8545');
 
 // Value 5- If required please update with a Ethereum URL
 setMessage('This the test sign message');
@@ -286,4 +286,30 @@ console.log(str); // "ethereum"
 
 var value = web3.toWei('1', 'ether');
 console.log(value); // "1000000000000000000"
+
+
+//var listening = web3.net.listening;
+//console.log("client listening: " + listening);
+//var peerCount = web3.net.peerCount;
+//console.log("Peer count: " + peerCount);
+
+console.log("Current default: " + web3.eth.defaultAccount); 
+
+console.log("defaultBlock: " + web3.eth.defaultBlock);
+
+//var sync = web3.eth.syncing;
+//console.log(sync);
+
+//var coinbase = web3.eth.coinbase;
+//console.log(coinbase);
+
+//var hashrate = web3.eth.hashrate;
+//console.log(hashrate);
+
+//var accounts = web3.eth.accounts;
+//console.log(accounts); 
+
+
+var number = web3.eth.blockNumber;
+console.log(number); // 2744
 
