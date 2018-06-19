@@ -33,10 +33,10 @@ web3.eth.filter(options).get(function(error, result){
 
 
 
-//filter.watch(function (error, log) {
-//  console.log(log); //  {"address":"0x0000000000000000000000000000000000000000", "data":"0x0000000000000000000000000000000000000000000000000000000000000000", ..
+filter.watch(function (error, log) {
+  console.log(log); //  {"address":"0x0000000000000000000000000000000000000000", "data":"0x0000000000000000000000000000000000000000000000000000000000000000", ..
 
-//});
+});
 
 /*console.log("filter get!");
 // get all past logs again.

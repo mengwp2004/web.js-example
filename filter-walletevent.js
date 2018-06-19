@@ -5,11 +5,10 @@ var ethURL = 'http://localhost:8545';
 
 web3 = new Web3(new Web3.providers.HttpProvider(ethURL));
 
-var topics =[]
 var contract_address = "0x163fda28fea5356f051cc00e236d67006200b558";
 
-//var topics =["0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"]
-var options = {fromBlock:3582,toBlock:3590,address:contract_address,topics:topics};
+var topics =["0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"]
+var options = {fromBlock:2494,toBlock:3590,address:contract_address,topics:topics};
 
 var filter = web3.eth.filter(options);
 
