@@ -1,7 +1,8 @@
 
-var Web3 = require('../index.js');
+var Web3 = require('web3');
 var BigNumber = require('bignumber.js');
-var ethURL = 'http://localhost:8545';
+var ip = '192.168.50.7';
+var ethURL = 'http://' + ip + ':8545';
 
 web3 = new Web3(new Web3.providers.HttpProvider(ethURL));
 
