@@ -30,7 +30,7 @@ function initializeContract(strAbi,sigContractAddress){
 
 // "gusto","GCT",10000,9,10000,"0x0f29b9e449748f51d1f9a6dcb0f6765fa6be8b61"
 // "GCT",1000
-// "gusto","GCT",10000,9,10000,"0x038f160ad632409bfb18582241d9fd88c1a072ba"
+// "gusto","GCT",10000,9,10000,"0xdc04977a2078c8ffdf086d618d1f961b6c546222"
 //issueToken(string name,string symbol,uint total,uint8 decimals,uint256 mainHold) 
 function issueToken(strAbi,contract_address,from){
 
