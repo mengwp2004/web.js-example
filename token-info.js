@@ -18,7 +18,7 @@ var strAbi1='[{"constant":true,"inputs":[{"name":"hash","type":"bytes32"},{"name
 var strAbi2='[{"constant":false,"inputs":[],"name":"sayHello","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]'
 
 var strAbi='[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"INITIAL_SUPPLY","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_subtractedValue","type":"uint256"}],"name":"decreaseApproval","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_addedValue","type":"uint256"}],"name":"increaseApproval","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"}]'
-var signMessage=""; 
+var signMessage="test001|2019|F|11059401|北京"; 
 
 var ethWeb3 = null;
 
@@ -54,8 +54,8 @@ function initializeEthereumConnection(){
         defaultAc=ethWeb3.eth.accounts[0];
         console.log(defaultAc)
       }
-      accountsList = ethWeb3.eth.accounts;
-      console.log(accountsList)
+      //accountsList = ethWeb3.eth.accounts;
+      //console.log(accountsList)
       return true;
   }
 
@@ -84,7 +84,7 @@ function initializeContract(){
     //console.log(sigContractInstance)
 }
 
-function signMessage(message){
+function signMsg(message){
 
     initializeEthereumConnection();
     if(ethWeb3.isConnected()==false){
@@ -92,8 +92,10 @@ function signMessage(message){
     }
     
     var state=unlockAccount(defaultAc);
-    
+    console.log("default adress"); 
+    console.log(defaultAc);
     const msg = new Buffer(message);
+    console.log("msg:" +message);
     const sig = ethWeb3.eth.sign(defaultAc, '0x' + msg.toString('hex'));
 
     return sig;
@@ -154,12 +156,14 @@ function verifySignedByAc(message, sig){
     const prefixedMsg = ethWeb3.sha3(
     Buffer.concat([prefix, new Buffer(String(msg.length)), msg]).toString('utf8')
     );
-
+    console.log("msg hash:");
+    console.log(prefixedMsg);
     var strPrefixedMsg=prefixedMsg;
 
-    var finalAddress=sigContractInstance.verify.call(strPrefixedMsg, res.v, res.r, '0x'+ res.s);
+    //var finalAddress=sigContractInstance.verify.call(strPrefixedMsg, res.v, res.r, '0x'+ res.s);
 
-    return finalAddress;
+    //return finalAddress;
+    return prefixedMsg;
 }
 
 function splitSig(sig) {
@@ -231,13 +235,13 @@ function execute(){
     console.log("Result");
     console.log("**********************************************************************");
 
-    //var sig=signMessage(signMessage);
-    //console.log("Signature");
-    //console.log(sig);
+    var sig=signMsg(signMessage);
+    console.log("Signature");
+    console.log(sig);
 
-    //var addr=verifySignedByAc(signMessage, sig);
-    //console.log("Signed By");
-    //console.log(addr);
+    var addr=verifySignedByAc(signMessage, sig);
+    console.log("Signed By");
+    console.log(addr);
     console.log("Hi:")
     getBalance();
     totalSupply();
@@ -264,7 +268,7 @@ function execute(){
 setEthereumURL('http://localhost:8545');
 
 // Value 5- If required please update with a Ethereum URL
-setMessage('This the test sign message');
+//setMessage('This the test sign message');
 
 
 execute();
